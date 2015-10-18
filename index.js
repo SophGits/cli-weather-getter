@@ -14,8 +14,11 @@ function getIcon(code) {
     "13d": "❄",
     "50d": String.fromCharCode(0xD83C,0xDF01)
   };
-
   return iconMap[code];
+}
+
+function kelvinToCelsius(kelvin) {
+  return (kelvin -273.15).toFixed(2);
 }
 
 var city = process.argv[2];
@@ -26,7 +29,10 @@ if (!city) {
 
 weather.forCity(city)
   .then(function(res){
-    console.log(getIcon(res.data.weather[0].icon));
+    var icon = getIcon(res.data.weather[0].icon),
+      celsius = kelvinToCelsius(res.data.main.temp);
+
+    console.log("%s  %d °C", icon, celsius);
   })
   .catch(function (error) {
     console.log(error);

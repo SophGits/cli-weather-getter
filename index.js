@@ -1,20 +1,26 @@
 "use strict";
 var weather = require("./weather");
 
+function throwError(err) {
+  throw new Error(err);
+}
+
 // Main
 function getIcon(code) {
+  code = code.slice(0,2);
   var iconMap = {
-    "01d": String.fromCharCode(0xD83C, 0xDF08),
-    "02d": "☁️",
-    "03d": "☁️☁",
-    "04d": "⛅",
-    "09d": "☔",
-    "10d" : String.fromCharCode(0xD83D, 0xDCA6),
-    "11d" : "⚡",
-    "13d": "❄",
-    "50d": String.fromCharCode(0xD83C,0xDF01)
+    "01": String.fromCharCode(0xD83C, 0xDF08),
+    "02": "☁️",
+    "03": "☁️☁",
+    "04": "⛅",
+    "09": "☔",
+    "10" : String.fromCharCode(0xD83D, 0xDCA6),
+    "11" : "⚡",
+    "13": "❄",
+    "50": String.fromCharCode(0xD83C,0xDF01)
   };
-  return iconMap[code];
+
+  return iconMap[code] || throwError(code);
 }
 
 function kelvinToCelsius(kelvin) {
